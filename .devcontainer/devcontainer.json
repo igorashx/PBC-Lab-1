@@ -1,13 +1,22 @@
 {
     "name": "Big Data Lab",
 
-    "build": {
-        "dockerfile": "Dockerfile",
-        "context": ".."
-    },
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "workspace",
+    "workspaceFolder": "/workspaces/PBC-Lab-1",
+    "runServices": [
+        "workspace",
+        "kafka",
+        "mongodb"
+    ],
+    "shutdownAction": "stopCompose",
 
     "features": {
-        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "21",
+            "jdkDistro": "ms"
+        }
     },
 
     "customizations": {
@@ -25,10 +34,13 @@
         }
     },
 
-    "forwardPorts": [
-        9092,
-        27017
-    ],
+    "forwardPorts": [8501],
+    "portsAttributes": {
+        "8501": {
+            "label": "Streaming dashboard",
+            "onAutoForward": "openBrowser"
+        }
+    },
 
     "postCreateCommand": "python --version && java -version && pyspark --version",
 
