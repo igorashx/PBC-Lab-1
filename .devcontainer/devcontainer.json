@@ -1,0 +1,36 @@
+{
+    "name": "Big Data Lab",
+
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+
+    "features": {
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+    },
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-toolsai.jupyter",
+                "ms-azuretools.vscode-docker",
+                "vscjava.vscode-java-pack"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/usr/local/bin/python"
+            }
+        }
+    },
+
+    "forwardPorts": [
+        9092,
+        27017
+    ],
+
+    "postCreateCommand": "python --version && java -version && pyspark --version",
+
+    "remoteUser": "vscode"
+}
