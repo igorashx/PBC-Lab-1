@@ -25,7 +25,7 @@ def main():
     topic = f"codespaces-smoke-{uuid4().hex}"
     try:
         mongo.admin.command("ping")
-        smoke_collection = mongo.bigdata._codespaces_smoke
+        smoke_collection = mongo.bigdata["_codespaces_smoke"]
         smoke_id = uuid4().hex
         smoke_collection.insert_one({"_id": smoke_id, "ok": True})
         assert smoke_collection.find_one({"_id": smoke_id})["ok"] is True
